@@ -1,4 +1,5 @@
 import pool from "../config/db.js"
+import { ConflictError, InternalServerError } from "../utils/error.js"
 
 class RoleService{
     async getRoles(){
@@ -8,14 +9,12 @@ class RoleService{
             data:roles.rows
         }
     }
-    async createRole(req, res){
+    async createRole(req, res, next){
+       try {
         const {name} = req.body
         const existRole = await pool.query(`select * from roles where name=$1`, [name])
         if ( existRole.rows.length) {
-            return {
-                status:409,
-                message:'Role already exist'
-            }
+            return next(new ConflictError(409, "Role already exist"))
         }
         await pool.query(`insert into roles(name) values($1)`, [name])
 
@@ -23,6 +22,9 @@ class RoleService{
             status:201,
             message:'Role created'
         }
+       } catch (error) {
+        next( new InternalServerError(500, error))
+       }
     }
 }
 

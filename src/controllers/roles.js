@@ -4,9 +4,11 @@ class RoleController{
         let resData = await roleService.getRoles()
         return res.status(resData.status).json(resData)  
     }
-    async createRole(req, res){
-     let resData = await roleService.createRole(req)
-     return res.status(resData.status).json(resData)
+    async createRole(req, res, next){
+     let resData = await roleService.createRole(req, next)
+     if (resData) {
+        return res.status(resData.status).json(resData)
+     }
     }
 }
 

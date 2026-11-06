@@ -9,6 +9,7 @@ class UserServices{
     }
 }
  async createUser(req, res){
+   try {
     const {fullname, phone, password, role_id} = req.body
     const existUser = await pool.query(`select * from users where phone=$1`,[phone])
     if ( existUser.rows.length) {
@@ -30,6 +31,9 @@ class UserServices{
         status:201,
         message:"User created!"
     }
+   } catch (error) {
+    
+   }
 }
 } 
 
