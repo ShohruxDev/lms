@@ -1,0 +1,4 @@
+[07/11/2026, 17:29:33]_POST_/api/v1/teachers_column "teacher_id" of relation "mentor_profile" does not exist
+[07/11/2026, 17:31:25]_POST_/api/v1/teachers_next is not defined
+[07/11/2026, 17:33:53]_POST_/api/v1/teachers_error: column "teacher_id" of relation "mentor_profile" does not exist
+[07/11/2026, 17:34:53]_POST_/api/v1/teachers_error: column "teacher_id" of relation "mentor_profile" does not exist
