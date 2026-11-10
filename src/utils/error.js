@@ -35,3 +35,30 @@ export class ConflictError extends Error{
     
 }
 
+export class ForbiddenError extends Error{
+    constructor(status, message){
+        super()
+        this.status = status,
+        this.message = message
+    }
+    
+}
+
+export class BadrequestError extends Error{
+    constructor(status, message){
+        super()
+        this.status = status,
+        this.message = message
+    }
+    
+}
+
+export class UnauthorizedError extends Error{
+    constructor(status, message){
+        super()
+        this.status = status,
+        this.message = message
+    }
+    
+}
+

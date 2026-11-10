@@ -9,10 +9,19 @@ class UserController{
         }
     }
    
-    async createAdmin(req, res){
-        let resData = await userServices.createAdmin(req)
-        return res.status(resData.status).json(resData)
+   
+
+    async createAdmin(req, res, next) {
+        try {
+            let resData = await userServices.createAdmin(req, res, next)
+            if (resData) {
+                return res.status(resData.status).json(resData)
+            }
+        } catch (error) {
+            return next(error)
+        }
     }
+
     async createTeacher(req,res,next){
         let resData = await userServices.createTeacher(req,next)
         if (resData) {

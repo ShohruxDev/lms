@@ -1,6 +1,6 @@
 import pool from "../config/db.js"
 import argon from 'argon2'
-import { InternalServerError } from "../utils/error.js"
+import { InternalServerError, NotFoundError } from "../utils/error.js"
 class UserServices{
     async getAdmins(next){
    try {
@@ -10,10 +10,10 @@ class UserServices{
         data:role.rows
     }
    } catch (error) {
-    next(new InternalServerError(500,error))
+   return next(new InternalServerError(500,error))
    }
 }
- async createAdmin(req, res){
+ async createAdmin(req, res, next){
    try {
     const {fullname, phone, password, role_id} = req.body
     const existUser = await pool.query(`select * from users where phone=$1`,[phone])
@@ -31,19 +31,23 @@ class UserServices{
         }
     }
     const hashPassword = await argon.hash(password)
-    await pool.query(`insert into users(fullname,phone,password,role_id) values($1,$2,$3,$4)`,[fullname,phone,password,role_id])
+    await pool.query(
+        `INSERT INTO users(fullname, phone, password, role_id)
+         VALUES($1, $2, $3, $4)`,
+        [fullname, phone, hashPassword, role_id]
+    )
     return {
         status:201,
         message:"User created!"
     }
    } catch (error) {
-    
+    return next(new InternalServerError(500, error.message))
    }
 }
 async createTeacher(req, next){
    try {
     const {fullname, phone, password, role_id, experience, job, portfolio, description, github, instagram, facebook, telegram, linkedin} = req.body
-    const hashPassword = argon.hash(password)
+    const hashPassword = await argon.hash(password)
    const teacher = await pool.query("insert into users(fullname,phone,password,role_id) values($1,$2,$3,$4) RETURNING *",[fullname,phone,hashPassword,role_id])
     const teacher_id = teacher.rows[0].id;
     await pool.query(`insert into mentor_profile(user_id,experience,job, portfolio, description,github, instagram, facebook, telegram, linkedin) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,[teacher_id,experience ?? null,job ?? null,portfolio ?? null,description ?? null,github ?? null,instagram ?? null,facebook ?? null,telegram ?? null, linkedin ?? null])
@@ -61,7 +65,7 @@ async deleteUser(req,res,next){
      const {userId} = req.params
      const existUser = await pool.query("select * from users where id=$1",[userId])
      if (!existUser.rows.length) {
-         next(new NotFoundError(404,"User not found with this id"))
+       return  next(new NotFoundError(404,"User not found with this id"))
      }
      await pool.query("delete from users where id=$1",[userId])
      return{

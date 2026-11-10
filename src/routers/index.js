@@ -1,9 +1,12 @@
 import express from 'express'
 import roleRouter from './roles.js'
 import userRouter from './users.js'
+import authRouter from './auth.js'
 const appRouter = express.Router()
 appRouter.use("/api/v1", roleRouter)
 appRouter.use("/api/v1", userRouter)
+appRouter.use("/api/v1", authRouter)
+
 
 
 export default appRouter
