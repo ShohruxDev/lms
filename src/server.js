@@ -3,10 +3,11 @@ import express from 'express'
 import appRouter from './routers/index.js'
 import fs from 'fs'
 import path from 'path'
-
+import fileUpload from "express-fileupload"
 configDotenv()
 const app = express()
 app.use(express.json())
+app.use(fileUpload())
 app.use(appRouter)
 app.use((error,req,res,next) => {
     if (error.status < 500) {

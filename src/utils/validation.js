@@ -7,5 +7,12 @@ export default{
         password:Joi.string().min(6).required(),
         role_id:Joi.number().integer().required(),
    
+    }),
+    coursesSxema:Joi.object({
+     name:Joi.string().min(5).max(34).required(),
+     description:Joi.string(),
+     level:Joi.string().required(),
+     price:Joi.number().positive().required(),
+     category_id:Joi.number().required()
     })
 }

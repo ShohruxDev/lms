@@ -44,21 +44,92 @@ class UserServices{
     return next(new InternalServerError(500, error.message))
    }
 }
-async createTeacher(req, next){
-   try {
-    const {fullname, phone, password, role_id, experience, job, portfolio, description, github, instagram, facebook, telegram, linkedin} = req.body
-    const hashPassword = await argon.hash(password)
-   const teacher = await pool.query("insert into users(fullname,phone,password,role_id) values($1,$2,$3,$4) RETURNING *",[fullname,phone,hashPassword,role_id])
-    const teacher_id = teacher.rows[0].id;
-    await pool.query(`insert into mentor_profile(user_id,experience,job, portfolio, description,github, instagram, facebook, telegram, linkedin) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,[teacher_id,experience ?? null,job ?? null,portfolio ?? null,description ?? null,github ?? null,instagram ?? null,facebook ?? null,telegram ?? null, linkedin ?? null])
-   
-    return {
-        status:201,
-        message:"Teacher created!"
+async createTeacher(req, next) {
+    try {
+        const {
+            fullname,
+            phone,
+            password,
+            role_id,
+            experience,
+            job,
+            portfolio,
+            description,
+            github,
+            instagram,
+            facebook,
+            telegram,
+            linkedin
+        } = req.body
+
+        // Telefon raqami mavjudligini tekshirish
+        const existUser = await pool.query(
+            `SELECT id FROM users WHERE phone = $1`,
+            [phone]
+        )
+
+        if (existUser.rows.length) {
+            return {
+                status: 409,
+                message: "User already exists"
+            }
+        }
+
+        // Berilgan role_id teacher ekanini tekshirish
+        const existRole = await pool.query(
+            `SELECT id FROM roles WHERE id = $1 AND name = $2`,
+            [role_id, "teacher"]
+        )
+
+        if (!existRole.rows.length) {
+            return {
+                status: 404,
+                message: "Teacher role not found"
+            }
+        }
+
+        // Parolni hash qilish
+        const hashPassword = await argon.hash(password)
+
+        // User yaratish
+        const teacher = await pool.query(
+            `INSERT INTO users(fullname, phone, password, role_id)
+             VALUES($1, $2, $3, $4) RETURNING id`,
+            [fullname, phone, hashPassword, role_id]
+        )
+
+        const teacher_id = teacher.rows[0].id
+
+        // Mentor profilini yaratish
+        await pool.query(
+            `INSERT INTO mentor_profile(
+                user_id, experience, job, portfolio,
+                description, github, instagram,
+                facebook, telegram, linkedin
+            )
+            VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,
+            [
+                teacher_id,
+                experience ?? null,
+                job ?? null,
+                portfolio ?? null,
+                description ?? null,
+                github ?? null,
+                instagram ?? null,
+                facebook ?? null,
+                telegram ?? null,
+                linkedin ?? null
+            ]
+        )
+
+        return {
+            status: 201,
+            message: "Teacher created!"
+        }
+
+    } catch (error) {
+        return next(new InternalServerError(500, error.message))
     }
-   } catch (error) {
-    next(new InternalServerError(500,error))
-   }
 }
 async deleteUser(req,res,next){
     try {

@@ -4,4 +4,4 @@ const router = express.Router()
 router
 .get("/roles/all", roleController.getAllRoles)
 .post("/roles", roleController.createRole)
-export default router   
+export default router  

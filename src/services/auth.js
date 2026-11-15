@@ -31,12 +31,13 @@ class AuthService {
         }
 
         const role = await pool.query(`select r.name from users u inner join roles r on u.role_id=r.id where u.role_id=${existUser.role_id}`)
+        console.log("LOGIN SECRET:", process.env.JWT_SECRET)
         return {
             status: 200,
             message: "User login",
             role:role.rows[0].name,
-            accessToken: JWT.sign({id:existUser.id,phone:existUser.phone,role:role.rows[0].name},"Shaptoli",{expiresIn:"30m"}),
-            refreshToken: JWT.sign({id:existUser.id,phone:existUser.phone,role:role.rows[0].name},"Shaptoli",{expiresIn:"24h"})
+            accessToken: JWT.sign({id:existUser.id,phone:existUser.phone,role:role.rows[0].name},process.env.JWT_SECRET,{expiresIn:"30m"}),
+            refreshToken: JWT.sign({id:existUser.id,phone:existUser.phone,role:role.rows[0].name},process.env.JWT_SECRET,{expiresIn:"24h"})
         }
     }
 }

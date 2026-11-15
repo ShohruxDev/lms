@@ -12,3 +12,28 @@
 [10/11/2026, 11:12:47]_POST_/api/v1/login_pchstr must contain a $ as first char
 [10/11/2026, 11:34:42]_POST_/api/v1/login_Assignment to constant variable.
 [10/11/2026, 11:35:39]_POST_/api/v1/login_Assignment to constant variable.
+[11/11/2026, 18:53:03]_GET_/api/v1/teachers/all_JsonWebTokenError is not defined
+[11/11/2026, 18:55:22]_GET_/api/v1/teachers/all_JsonWebTokenError is not defined
+[11/11/2026, 18:59:43]_GET_/api/v1/teachers/all_JsonWebTokenError is not defined
+[11/11/2026, 19:01:13]_GET_/api/v1/teachers/all_JsonWebTokenError is not defined
+[11/11/2026, 19:03:47]_GET_/api/v1/teachers/all_JsonWebTokenError is not defined
+[11/11/2026, 19:31:45]_GET_/api/v1/teachers/all_invalid signature
+[11/11/2026, 19:54:13]_GET_/api/v1/teachers/all_Cannot read properties of undefined (reading 'id')
+[12/11/2026, 13:29:51]_POST_/api/v1/categories_Invalid status code: undefined. Status code must be an integer.
+[12/11/2026, 13:32:56]_POST_/api/v1/categories_undefined
+[12/11/2026, 13:33:10]_POST_/api/v1/categories_undefined
+[12/11/2026, 15:06:00]_GET_/api/v1/teachers/all_TokenExpiredError: jwt expired
+[12/11/2026, 15:13:09]_POST_/api/v1/categories_TokenExpiredError: jwt expired
+[12/11/2026, 15:14:14]_GET_/api/v1/categories/all_TokenExpiredError: jwt expired
+[12/11/2026, 15:25:59]_POST_/api/v1/courses_ReferenceError: Jwt is not defined
+[12/11/2026, 15:28:15]_POST_/api/v1/courses_Cannot destructure property 'name' of 'req.body' as it is undefined.
+[12/11/2026, 15:33:23]_POST_/api/v1/courses_Cannot destructure property 'name' of 'req.body' as it is undefined.
+[14/11/2026, 12:11:21]_POST_/api/v1/courses_Cannot destructure property 'name' of 'req.body' as it is undefined.
+[14/11/2026, 12:23:46]_POST_/api/v1/courses_Cannot destructure property 'name' of 'req.body' as it is undefined.
+[14/11/2026, 12:27:03]_POST_/api/v1/courses_Cannot destructure property 'name' of 'req.body' as it is undefined.
+[14/11/2026, 12:46:46]_POST_/api/v1/login_pchstr must contain a $ as first char
+[14/11/2026, 12:48:54]_GET_/api/v1/courses/all_res is not defined
+[14/11/2026, 12:49:04]_GET_/api/v1/courses/all_res is not defined
+[14/11/2026, 13:35:28]_GET_/api/v1/cou3rses_column "aprove" does not exist
+[15/11/2026, 19:12:49]_GET_/api/v1/sections/1_could not determine data type of parameter $1
+[15/11/2026, 19:18:47]_GET_/api/v1/sections/1_could not determine data type of parameter $1
