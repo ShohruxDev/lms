@@ -36,4 +36,49 @@
 [14/11/2026, 12:49:04]_GET_/api/v1/courses/all_res is not defined
 [14/11/2026, 13:35:28]_GET_/api/v1/cou3rses_column "aprove" does not exist
 [15/11/2026, 19:12:49]_GET_/api/v1/sections/1_could not determine data type of parameter $1
-[15/11/2026, 19:18:47]_GET_/api/v1/sections/1_could not determine data type of parameter $1
+[15/11/2026, 19:18:47]_GET_43/api/v1/sections/1_could not determine data type of parameter $1
+[17/11/2026, 13:43:53]_POST_/api/v1/lessons_Invalid status code: undefined. Status code must be an integer.
+[17/11/2026, 13:49:27]_POST_/api/v1/lessons_next is not a function
+[17/11/2026, 13:52:42]_POST_/api/v1/lessons_next is not a function
+[17/11/2026, 13:53:34]_POST_/api/v1/lessons_next is not a function
+[17/11/2026, 13:55:17]_POST_/api/v1/lessons_next is not a function
+[17/11/2026, 13:57:05]_POST_/api/v1/lessons_column "descripton" of relation "lessons" does not exist
+[17/11/2026, 14:00:17]_POST_/api/v1/lessons_column "descripton" of relation "lessons" does not exist
+[17/11/2026, 14:01:47]_POST_/api/v1/lessons_column "descripton" of relation "lessons" does not exist
+[17/11/2026, 14:03:39]_POST_/api/v1/lessons_column "descripton" of relation "lessons" does not exist
+[17/11/2026, 14:06:59]_POST_/api/v1/lessons_description is not defined
+[19/11/2026, 09:29:16]_POST_/api/v1/materials_lessonsService is not defined
+[19/11/2026, 09:29:33]_POST_/api/v1/materials_lessonsService is not defined
+[19/11/2026, 09:31:12]_POST_/api/v1/materials_lessonsService is not defined
+[19/11/2026, 09:32:34]_POST_/api/v1/materials_materialssService.createMaterial is not a function
+[19/11/2026, 09:35:25]_POST_/api/v1/materials_existSection is not defined
+[19/11/2026, 09:38:55]_POST_/api/v1/materials_section_id is not defined
+[19/11/2026, 09:39:49]_POST_/api/v1/materials_section_id is not defined
+[19/11/2026, 09:50:01]_POST_/api/v1/materials_next is not a function
+[19/11/2026, 09:54:42]_POST_/api/v1/materials_The "path" argument must be of type string. Received undefined
+[19/11/2026, 16:00:37]_POST_/api/v1/exams_Cannot destructure property 'question' of 'req.body' as it is undefined.
+[19/11/2026, 16:05:00]_POST_/api/v1/exams_Cannot destructure property 'question' of 'req.body' as it is undefined.
+[21/11/2026, 10:21:42]_POST_/api/v1/register_syntax error at or near ")"
+[21/11/2026, 10:23:18]_POST_/api/v1/register_student is not defined
+[21/11/2026, 10:31:11]_POST_/api/v1/register_null value in column "role_id" of relation "users" violates not-null constraint
+[21/11/2026, 10:33:17]_POST_/api/v1/register_insert or update on table "payments" violates foreign key constraint "payments_student_id_fkey"
+[21/11/2026, 14:48:47]_GET_/api/v1/students/courses/my_Cannot read properties of undefined (reading 'id')
+[21/11/2026, 14:51:02]_GET_/api/v1/students/courses/my_Cannot read properties of undefined (reading 'id')
+[21/11/2026, 14:53:19]_GET_/api/v1/students/courses/my_Cannot read properties of undefined (reading 'split')
+[21/11/2026, 14:53:40]_GET_/api/v1/students/courses/my_Cannot read properties of undefined (reading 'id')
+[21/11/2026, 15:38:12]_POST_/api/v1/login_pchstr must contain a $ as first char
+[21/11/2026, 15:38:33]_POST_/api/v1/login_pchstr must contain a $ as first char
+[21/11/2026, 15:58:15]_GET_/api/v1/students/courses/my_Cannot read properties of undefined (reading 'id')
+[21/11/2026, 19:24:03]_POST_/api/v1/login_pchstr must contain a $ as first char
+[22/11/2026, 18:20:25]_DELETE_/api/v1/courses/1_update or delete on table "courses" violates foreign key constraint "sections_course_id_fkey" on table "sections"
+[23/11/2026, 15:46:40]_POST_/api/v1/lessons_next is not a function
+[23/11/2026, 16:01:26]_DELETE_/api/v1/lessons/1_update or delete on table "lessons" violates foreign key constraint "materials_lesson_id_fkey" on table "materials"
+[23/11/2026, 17:05:39]_POST_/api/v1/login_pchstr must contain a $ as first char
+[23/11/2026, 17:39:58]_DELETE_/api/v1/teachers/28_update or delete on table "users" violates foreign key constraint "mentor_profile_user_id_fkey" on table "mentor_profile"
+[23/11/2026, 17:40:44]_DELETE_/api/v1/teachers/27_update or delete on table "users" violates foreign key constraint "mentor_profile_user_id_fkey" on table "mentor_profile"
+[23/11/2026, 17:41:32]_DELETE_/api/v1/teachers/29_update or delete on table "users" violates foreign key constraint "mentor_profile_user_id_fkey" on table "mentor_profile"
+[24/11/2026, 14:58:02]_POST_/api/v1/roles_next is not a function
+[24/11/2026, 14:58:14]_POST_/api/v1/roles_next is not a function
+[24/11/2026, 14:59:09]_POST_/api/v1/roles_next is not a function
+[24/11/2026, 14:59:53]_POST_/api/v1/roles_next is not a function
+[24/11/2026, 15:04:54]_POST_/api/v1/roles_next is not a function

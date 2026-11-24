@@ -4,13 +4,19 @@ import { ForbiddenError, NotFoundError } from "../utils/error.js"
 class SectinService{
     async getSectionById(req,next){
             const {courseId} = req.params
-            const teacherId = req.user.id
+            const userId = req.user.id
             const existCourse = await pool.query("select * from courses where id=$1",[courseId])
             if (!existCourse.rows.length) {
                 next(new NotFoundError(404,"Course not found"))
             }
-            if (req.user.role == "teacher" &&   teacherId != existCourse.rows[0].user_id) {
+            if (req.user.role == "teacher" &&   userId != existCourse.rows[0].user_id) {
                 return next(new ForbiddenError(403,"You cann't section to this course"))
+             }
+             if (req.user.role == "student") {
+                const payments = await pool.query(`select * from payments where student_id=$1 and course_id=$2`,[userId,courseId])
+                if (!payments.rows.length) {
+                    return next(new ForbiddenError(403,'You can not see this course'))
+                }
              }
             const sections = await pool.query("select * from sections where course_id=$1",[courseId])
             return {

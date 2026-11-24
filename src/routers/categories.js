@@ -9,6 +9,16 @@ router
 .get("/categories/all",authGuard,roleGuard("admin") ,categoryController.getAllCategories)
 // .post("/admins",middleware.createUsers, userController.createAdmin)
 .post("/categories", authGuard, roleGuard("admin"),categoryController.createCategory)
-// .post("/teachers", userController.createTeacher)
-// .delete("/users/:userId",userController.deleteUser)
+.put(
+    "/categories/:categoryId",
+    authGuard,
+    roleGuard("admin"),
+    categoryController.updateCategory
+)
+.delete(
+    "/categories/:categoryId",
+    authGuard,
+    roleGuard("admin"),
+    categoryController.deleteCategory
+)
 export default router  

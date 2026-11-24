@@ -31,6 +31,19 @@ class CoursesController{
             return res.status(resData.status).json(resData)
         } 
     }
+    async courseUpdated(req,res,next){
+        let resData = await coursesServices.courseUpdated(req,next)
+        if (resData) {
+            return res.status(resData.status).json(resData)
+        } 
+    }
+    async deleteCourse(req, res, next) {
+        let resData = await coursesServices.deleteCourse(req, next)
+    
+        if (resData) {
+            return res.status(resData.status).json(resData)
+        }
+    }
 }
 
 const coursesController = new CoursesController()

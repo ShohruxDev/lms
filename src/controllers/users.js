@@ -34,6 +34,15 @@ class UserController{
         return res.status(resData.status).json(resData)   
     }
    }
+
+async updateUser(req, res, next) {
+    let resData = await userServices.updateUser(req, next)
+
+    if (resData) {
+        return res.status(resData.status).json(resData)
+    }
+}
+
 }
 
 const userController = new UserController()

@@ -1,7 +1,7 @@
 import roleService from "../services/roles.js"
 class RoleController{
-    async getAllRoles(req, res){
-        let resData = await roleService.getRoles()
+    async getAllRoles(req, res, next){
+        let resData = await roleService.getRoles(req,next)
         return res.status(resData.status).json(resData)  
     }
     async createRole(req, res, next){
@@ -10,6 +10,23 @@ class RoleController{
         return res.status(resData.status).json(resData)
      }
     }
+
+async updateRole(req, res, next) {
+    let resData = await roleService.updateRole(req, next)
+
+    if (resData) {
+        return res.status(resData.status).json(resData)
+    }
+}
+
+async deleteRole(req, res, next) {
+    let resData = await roleService.deleteRole(req, next)
+
+    if (resData) {
+        return res.status(resData.status).json(resData)
+    }
+}
+
 }
 
 const roleController = new RoleController()

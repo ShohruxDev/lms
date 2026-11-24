@@ -7,8 +7,17 @@ import authGuard from '../guards/auth-guard.js'
 const router = express.Router()
 router
 .get("/teachers/all",authGuard,roleGuard("admin") ,teacherController.getAllteachers)
-// .post("/admins",middleware.createUsers, userController.createAdmin)
-// .post("/admins", authGuard, roleGuard("admin"),middleware.createUsers,userController.createAdmin)
 .post("/teachers", userController.createTeacher)
-// .delete("/users/:userId",userController.deleteUser)
+.put(
+    "/teachers/:id",
+    authGuard,
+    roleGuard("admin"),
+    teacherController.updateTeacher
+)
+.delete(
+    "/teachers/:id",
+    authGuard,
+    roleGuard("admin"),
+    teacherController.deleteTeacher
+)
 export default router  

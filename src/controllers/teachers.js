@@ -11,6 +11,29 @@ class TeacherController{
     return next(error)
    }
     }
+    async updateTeacher(req, res, next) {
+        try {
+            const resData = await teacherService.updateTeacher(req, next)
+    
+            if (resData) {
+                return res.status(resData.status).json(resData)
+            }
+        } catch (error) {
+            next(error)
+        }
+    }
+    
+    async deleteTeacher(req, res, next) {
+        try {
+            const resData = await teacherService.deleteTeacher(req, next)
+    
+            if (resData) {
+                return res.status(resData.status).json(resData)
+            }
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 const teacherController = new TeacherController()

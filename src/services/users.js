@@ -147,6 +147,69 @@ async deleteUser(req,res,next){
      next(new InternalServerError(500,error))
     }
  }
+
+async updateUser(req, next) {
+    try {
+        const { userId } = req.params
+        const { fullname, phone, password, role_id } = req.body
+
+        // User mavjudligini tekshirish
+        const existUser = await pool.query(
+            `SELECT * FROM users WHERE id=$1`,
+            [userId]
+        )
+
+        if (!existUser.rows.length) {
+            return next(new NotFoundError(404, "User not found"))
+        }
+
+        // Telefon raqami boshqa userda borligini tekshirish
+        const existPhone = await pool.query(
+            `SELECT * FROM users WHERE phone=$1 AND id!=$2`,
+            [phone, userId]
+        )
+
+        if (existPhone.rows.length) {
+            return {
+                status: 409,
+                message: "Phone number already exists"
+            }
+        }
+
+        // Role mavjudligini tekshirish
+        const existRole = await pool.query(
+            `SELECT * FROM roles WHERE id=$1`,
+            [role_id]
+        )
+
+        if (!existRole.rows.length) {
+            return {
+                status: 404,
+                message: "Role not found"
+            }
+        }
+
+        // Parolni hash qilish
+        const hashPassword = await argon.hash(password)
+
+        // User ma'lumotlarini yangilash
+        await pool.query(
+            `UPDATE users
+             SET fullname=$1, phone=$2, password=$3, role_id=$4
+             WHERE id=$5`,
+            [fullname, phone, hashPassword, role_id, userId]
+        )
+
+        return {
+            status: 200,
+            message: "User updated successfully"
+        }
+
+    } catch (error) {
+        return next(new InternalServerError(500, error.message))
+    }
+}
+
 } 
 
 const userServices = new UserServices()

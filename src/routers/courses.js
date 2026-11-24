@@ -7,7 +7,7 @@ import authGuard from '../guards/auth-guard.js'
 const router = express.Router()
 router
 .get("/courses",coursesController.getCourses)
-.get("/courses/my",authGuard,roleGuard("teacher"),coursesController.getMyCourses)
+.get("/courses/my",authGuard,roleGuard("teacher","student"),coursesController.getMyCourses)
 
 .get("/courses/all",authGuard,roleGuard("admin") ,coursesController.gettAllCourses)
 
@@ -15,6 +15,18 @@ router
 // .post("/admins", authGuard, roleGuard("admin"),middleware.createUsers,userController.createAdmin)
 .post("/courses",authGuard,roleGuard("teacher"),middleware.createCourse, coursesController.createCourse)
 .put("/courses/approve/:courseId",authGuard,roleGuard("admin"), coursesController.approveCourse)
-
+.put("/courses/:coursesId",authGuard,roleGuard("admin"),coursesController.courseUpdated)
 // .delete("/users/:userId",userController.deleteUser)
-export default router  
+// .put(
+//     "/courses/:courseId",
+//     authGuard,
+//     roleGuard("admin"),
+//     coursesController.courseUpdated
+// )
+.delete(
+    "/courses/:courseId",
+    authGuard,
+    roleGuard("admin"),
+    coursesController.deleteCourse
+)
+export default router   

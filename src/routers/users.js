@@ -9,5 +9,11 @@ router
 .post("/admins",middleware.createUsers, userController.createAdmin)
 .post("/admins", authGuard, roleGuard("admin"),middleware.createUsers,userController.createAdmin)
 .post("/teachers", userController.createTeacher)
+.put(
+    "/users/:userId",
+    authGuard,
+    roleGuard("admin"),
+    userController.updateUser
+)
 .delete("/users/:userId",userController.deleteUser)
-export default router  
+export default router

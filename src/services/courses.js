@@ -65,6 +65,114 @@ async approveCourse(req,next){
         message:'Course approved!'
      }
 }
+async courseUpdated(req, next) {
+    const { courseId } = req.params
+
+    const existCourse = await pool.query(
+        `select * from courses where id=$1`,
+        [courseId]
+    )
+
+    if (!existCourse.rows.length) {
+        return next(new NotFoundError(404, "Course not found"))
+    }
+
+    const { name, description, level, price, category_id } = req.body
+
+    const files = req.files || {}
+
+    const fields = []
+    const values = []
+
+    const allowedFields = {
+        name,
+        description,
+        level,
+        price,
+        category_id
+    }
+
+    if (category_id !== undefined) {
+        const existCategory = await pool.query(
+            `select * from categories where id=$1`,
+            [category_id]
+        )
+
+        if (!existCategory.rows.length) {
+            return next(new NotFoundError(404, "Category not found"))
+        }
+    }
+
+    for (const [key, value] of Object.entries(allowedFields)) {
+        if (value !== undefined) {
+            values.push(value)
+            fields.push(`${key}=$${values.length}`)
+        }
+    }
+
+    if (files.banner) {
+        const bannerName = Date.now() + extname(files.banner.name)
+
+        await files.banner.mv(
+            join(process.cwd(), "src", "uploads", bannerName)
+        )
+
+        values.push(bannerName)
+        fields.push(`banner=$${values.length}`)
+    }
+
+    if (files.intro_video) {
+        const videoName = Date.now() + extname(files.intro_video.name)
+
+        await files.intro_video.mv(
+            join(process.cwd(), "src", "uploads", videoName)
+        )
+
+        values.push(videoName)
+        fields.push(`intro_video=$${values.length}`)
+    }
+
+    if (!fields.length) {
+        return {
+            status: 400,
+            message: "Update uchun ma'lumot yuboring"
+        }
+    }
+
+    values.push(courseId)
+
+    await pool.query(
+        `UPDATE courses SET ${fields.join(", ")} WHERE id=$${values.length}`,
+        values
+    )
+
+    return {
+        status: 200,
+        message: "Course updated successfully!"
+    }
+}
+async deleteCourse(req, next) {
+    const { courseId } = req.params
+
+    const existCourse = await pool.query(
+        `SELECT * FROM courses WHERE id=$1`,
+        [courseId]
+    )
+
+    if (!existCourse.rows.length) {
+        return next(new NotFoundError(404, "Course not found"))
+    }
+
+    await pool.query(
+        `DELETE FROM courses WHERE id=$1`,
+        [courseId]
+    )
+
+    return {
+        status: 200,
+        message: "Course deleted successfully!"
+    }
+}
 }
 
 const coursesServices = new CoursesServices()
